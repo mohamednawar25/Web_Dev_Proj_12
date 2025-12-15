@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RePlast Creations - Home</title>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="RePlast, Recycled Furniture">
+	<meta name="description" content="RePlast Creations - Eco-Friendly Furniture">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		
+		body {
+			font-family: Franklin Gothic Medium;
+			font-size: 16px;
+			margin: 0;
+			transition: background-color 0.3s, color 0.3s;
+		}
+		
+		body.theme-original {
+			background-color: #E1D0B3;
+			color: #000;
+		}
+		
+		body.theme-dark {
+			background-color: #1a1a1a;
+			color: #e0e0e0;
+		}
+		
+		body.theme-green {
+			background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+			color: #fff;
+		}
+		
+		body.theme-ocean {
+			background: linear-gradient(135deg, #2E3192 0%, #1BFFFF 100%);
+			color: #fff;
+		}
+		
+		.theme-changer {
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			background: rgba(255, 255, 255, 0.9);
+			padding: 15px;
+			border-radius: 10px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+			z-index: 1000;
+		}
+		
+		.theme-changer h3 {
+			margin: 0 0 10px 0;
+			font-size: 14px;
+			color: #333;
+		}
+		
+		.theme-buttons {
+			display: flex;
+			gap: 8px;
+		}
+		
+		.theme-btn {
+			width: 40px;
+			height: 40px;
+			border: 3px solid #333;
+			border-radius: 50%;
+			cursor: pointer;
+			transition: transform 0.2s;
+		}
+		
+		.theme-btn:hover {
+			transform: scale(1.1);
+		}
+		
+		.theme-btn.active {
+			border-color: #ffd700;
+			box-shadow: 0 0 10px #ffd700;
+		}
+		
+		.theme-btn.original { background-color: #E1D0B3; }
+		.theme-btn.dark { background-color: #1a1a1a; }
+		.theme-btn.green { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+		.theme-btn.ocean { background: linear-gradient(135deg, #2E3192 0%, #1BFFFF 100%); }
+		
+		#header {
+			background-color: #9BB4C0;
+			text-align: center;
+			color: white;
+			font-size: 300%;
+			font-weight: bold;
+			padding: 30px;
+			border-radius: 10px;
+		}
+		
+		#menu ul {
+			background-color: #9BB4C0;
+			text-align: center;
+			color: white;
+			padding: 6px;
+			border-radius: 10px;
+			margin-top: 15px;
+			margin-bottom: 0;
+			list-style-type: none;
+			font-size: 120%;
+		}
+		
+		#menu ul li {
+			display: inline;
+		}
+		
+		#menu ul li a {
+			background: white;
+			color: black;
+			text-decoration: none;
+			padding: 10px 30px;
+			border-radius: 10px;
+			font-size: 130%;
+			transition: 0.5s;
+		}
+		
+		#menu ul li a:hover,
+		#menu ul li a.active {
+			background: white;
+			color: darkred;
+		}
+		
+		.slideshow-section {
+			background: rgba(161, 141, 109, 0.3);
+			padding: 30px;
+			margin: 20px;
+			border-radius: 10px;
+		}
+		
+		.slideshow-section h2 {
+			color: darkred;
+			font-size: 200%;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		
+		.slideshow-container {
+			position: relative;
+			max-width: 900px;
+			margin: 0 auto;
+			height: 500px;
+			overflow: hidden;
+			border-radius: 10px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+		}
+		
+		.slide {
+			display: none;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			animation: fadeIn 1s;
+		}
+		
+		.slide.active {
+			display: block;
+		}
+		
+		.slide img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		
+		.slide-caption {
+			position: absolute;
+			bottom: 30px;
+			left: 30px;
+			background: rgba(0, 0, 0, 0.7);
+			padding: 20px 30px;
+			border-radius: 10px;
+			color: white;
+		}
+		
+		.slide-caption h3 {
+			margin: 0 0 5px 0;
+			font-size: 24px;
+		}
+		
+		.slide-caption p {
+			margin: 0;
+			font-size: 16px;
+		}
+		
+		@keyframes fadeIn {
+			from { opacity: 0; }
+			to { opacity: 1; }
+		}
+		
+		.slide-controls {
+			text-align: center;
+			margin-top: 20px;
+		}
+		
+		.slide-controls button {
+			background-color: #9BB4C0;
+			color: white;
+			border: none;
+			padding: 12px 25px;
+			margin: 0 10px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+			transition: 0.3s;
+		}
+		
+		.slide-controls button:hover {
+			background-color: #7a9aaa;
+		}
+		
+		.stats-section {
+			background: rgba(161, 141, 109, 0.3);
+			padding: 40px;
+			margin: 20px;
+			border-radius: 10px;
+		}
+		
+		.stats-section h2 {
+			color: darkred;
+			font-size: 200%;
+			text-align: center;
+			margin-bottom: 30px;
+		}
+		
+		.stats-grid {
+			display: flex;
+			justify-content: space-around;
+			flex-wrap: wrap;
+			gap: 20px;
+		}
+		
+		.stat-box {
+			background: #9BB4C0;
+			padding: 30px;
+			border-radius: 10px;
+			text-align: center;
+			min-width: 200px;
+			color: white;
+		}
+		
+		.stat-number {
+			font-size: 3.5em;
+			font-weight: bold;
+			margin: 15px 0;
+		}
+		
+		.stat-label {
+			font-size: 1.2em;
+		}
+		
+		.clock-section {
+			background: rgba(161, 141, 109, 0.3);
+			padding: 30px;
+			margin: 20px;
+			border-radius: 10px;
+		}
+		
+		.clock-section h2 {
+			color: darkred;
+			font-size: 200%;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		
+		.clock-display {
+			background: #9BB4C0;
+			padding: 40px;
+			border-radius: 10px;
+			text-align: center;
+			color: white;
+			max-width: 600px;
+			margin: 0 auto;
+		}
+		
+		.time {
+			font-size: 4em;
+			font-weight: bold;
+			margin-bottom: 10px;
+		}
+		
+		.date {
+			font-size: 1.5em;
+		}
+		
+		.contact-section {
+			background: rgba(161, 141, 109, 0.3);
+			padding: 30px;
+			margin: 20px;
+			border-radius: 10px;
+		}
+		
+		.contact-section h2 {
+			color: darkred;
+			font-size: 200%;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		
+		.contact-form {
+			max-width: 600px;
+			margin: 0 auto;
+			background: #E1D0B3;
+			padding: 30px;
+			border-radius: 10px;
+		}
+		
+		body.theme-dark .contact-form,
+		body.theme-green .contact-form,
+		body.theme-ocean .contact-form {
+			background: rgba(255, 255, 255, 0.1);
+		}
+		
+		.form-group {
+			margin-bottom: 20px;
+		}
+		
+		.form-group label {
+			display: block;
+			margin-bottom: 5px;
+			font-weight: bold;
+			color: darkred;
+		}
+		
+		body.theme-dark .form-group label,
+		body.theme-green .form-group label,
+		body.theme-ocean .form-group label {
+			color: #fff;
+		}
+		
+		.form-group input,
+		.form-group textarea {
+			width: 100%;
+			padding: 12px;
+			border: 2px solid #9BB4C0;
+			border-radius: 5px;
+			font-size: 16px;
+			font-family: Franklin Gothic Medium;
+		}
+		
+		.error-message {
+			color: #ff4444;
+			font-size: 14px;
+			margin-top: 5px;
+			display: none;
+		}
+		
+		.form-group button {
+			background-color: #9BB4C0;
+			color: white;
+			padding: 15px 40px;
+			border: none;
+			border-radius: 5px;
+			font-size: 18px;
+			cursor: pointer;
+			transition: 0.3s;
+			width: 100%;
+		}
+		
+		.form-group button:hover {
+			background-color: #7a9aaa;
+		}
+		
+		.success-message {
+			display: none;
+			background: rgba(0, 200, 0, 0.2);
+			padding: 15px;
+			border-radius: 5px;
+			margin-top: 20px;
+			text-align: center;
+			color: green;
+			font-weight: bold;
+		}
+		
+		body.theme-dark .success-message,
+		body.theme-green .success-message,
+		body.theme-ocean .success-message {
+			color: #00ff00;
+		}
+		
+		#row {
+			display: flex;
+			gap: 20px;
+			padding: 20px;
+			flex-wrap: wrap;
+		}
+		
+		.card {
+			background: #A18D6D;
+			padding: 20px;
+			border-radius: 10px;
+			flex: 1;
+			min-width: 300px;
+		}
+		
+		.card img {
+			border-radius: 10px;
+			width: 100%;
+			transition: 0.5s;
+		}
+		
+		.card img:hover {
+			opacity: 0.9;
+		}
+		
+		.card h1 {
+			color: darkred;
+			font-size: 120%;
+		}
+		
+		#Footer {
+			background-color: #9BB4C0;
+			text-align: center;
+			color: white;
+			padding: 20px;
+			margin-top: 20px;
+			border-radius: 10px;
+		}
+		
+		@media screen and (max-width: 800px) {
+			#row {
+				flex-direction: column;
+			}
+			.stats-grid {
+				flex-direction: column;
+			}
+			.time {
+				font-size: 2.5em;
+			}
+		}
+	</style>
+</head>
+<body class="theme-original">
+	<div class="theme-changer">
+		<h3>🎨 Color Theme</h3>
+		<div class="theme-buttons">
+			<div class="theme-btn original active" onclick="changeTheme('original')" title="Original Theme"></div>
+			<div class="theme-btn dark" onclick="changeTheme('dark')" title="Dark Theme"></div>
+			<div class="theme-btn green" onclick="changeTheme('green')" title="Green Theme"></div>
+			<div class="theme-btn ocean" onclick="changeTheme('ocean')" title="Ocean Theme"></div>
+		</div>
+	</div>
+
+	<div id="header">RePlast Creations</div>
+	
+	<div id="menu">
+		<nav>
+			<ul>
+				<li><a href="replast_linked_home.html" class="active">Home</a></li>
+				<li><a href="replast_linked_about.html">About</a></li>
+				<li><a href="replast_linked_products.html">Products</a></li>
+				<li><a href="replast_linked_process.html">Process</a></li>
+				<li><a href="replast_linked_contact.html">Contact</a></li>
+				<li><a href="replast_linked_register.html">Register</a></li>
+			</ul>
+		</nav>
+	</div>
+
+	<div class="slideshow-section">
+		<h2>🌍 Our Eco-Friendly Furniture Gallery</h2>
+		<div class="slideshow-container">
+			<div class="slide active">
+				<img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&h=500&fit=crop" alt="Living Room">
+				<div class="slide-caption">
+					<h3>Modern Eco Living Rooms</h3>
+					<p>Sustainable furniture for your home</p>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=900&h=500&fit=crop" alt="Chairs">
+				<div class="slide-caption">
+					<h3>Recycled Plastic Chairs</h3>
+					<p>Comfortable and environmentally friendly</p>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=900&h=500&fit=crop" alt="Tables">
+				<div class="slide-caption">
+					<h3>Eco-Friendly Tables</h3>
+					<p>Perfect for any space</p>
+				</div>
+			</div>
+			<div class="slide">
+				<img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=900&h=500&fit=crop" alt="Outdoor">
+				<div class="slide-caption">
+					<h3>Outdoor Furniture</h3>
+					<p>Weather-resistant & durable</p>
+				</div>
+			</div>
+		</div>
+		<div class="slide-controls">
+			<button onclick="changeSlide(-1)">◄ Previous</button>
+			<button onclick="changeSlide(1)">Next ►</button>
+		</div>
+	</div>
+
+	<div class="stats-section">
+		<h2>📊 Our Impact</h2>
+		<div class="stats-grid">
+			<div class="stat-box">
+				<div class="stat-label">Plastic Recycled</div>
+				<div class="stat-number" data-target="2500">0</div>
+				<div class="stat-label">Kilograms</div>
+			</div>
+			<div class="stat-box">
+				<div class="stat-label">Products Created</div>
+				<div class="stat-number" data-target="450">0</div>
+				<div class="stat-label">Items</div>
+			</div>
+			<div class="stat-box">
+				<div class="stat-label">Happy Customers</div>
+				<div class="stat-number" data-target="320">0</div>
+				<div class="stat-label">Clients</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="clock-section">
+		<h2>🕐 Current Time</h2>
+		<div class="clock-display">
+			<div class="time" id="clockTime">00:00:00</div>
+			<div class="date" id="clockDate">Loading...</div>
+		</div>
+	</div>
+
+	<div id="row">
+		<div class="card">
+			<h1>Eco Design</h1>
+			<p>Choose your own furniture design</p>
+			<img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop" alt="Eco Design">
+		</div>
+		<div class="card">
+			<h1>Couch & Sofa</h1>
+			<p>Choose your couch and sofa</p>
+			<img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=400&h=300&fit=crop" alt="Couch">
+		</div>
+		<div class="card">
+			<h1>Chairs</h1>
+			<p>Choose your chair</p>
+			<img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=300&fit=crop" alt="Chairs">
+		</div>
+	</div>
+
+	<div class="contact-section">
+		<h2>📧 Contact Us</h2>
+		<form class="contact-form" id="contactForm" onsubmit="return validateForm(event)">
+			<div class="form-group">
+				<label for="fullName">Full Name *</label>
+				<input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+				<div class="error-message" id="nameError">Please enter your full name (minimum 3 characters)</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="email">Email Address *</label>
+				<input type="text" id="email" name="email" placeholder="your.email@example.com">
+				<div class="error-message" id="emailError">Please enter a valid email address</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="phone">Phone Number *</label>
+				<input type="text" id="phone" name="phone" placeholder="01234567890">
+				<div class="error-message" id="phoneError">Please enter a valid phone number (10-11 digits)</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="message">Your Message *</label>
+				<textarea id="message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+				<div class="error-message" id="messageError">Please enter a message (minimum 10 characters)</div>
+			</div>
+			
+			<div class="form-group">
+				<button type="submit">Send Message</button>
+			</div>
+			
+			<div class="success-message" id="successMessage">
+				✓ Thank you! Your message has been sent successfully. We'll get back to you soon.
+			</div>
+		</form>
+	</div>
+
+	<div id="Footer">&copy; 2025 RePlast Creations. All rights reserved.</div>
+
+	<script>
+		function changeTheme(theme) {
+			document.body.className = '';
+			document.body.classList.add('theme-' + theme);
+			window.currentTheme = theme;
+			
+			document.querySelectorAll('.theme-btn').forEach(btn => {
+				btn.classList.remove('active');
+			});
+			document.querySelector('.theme-btn.' + theme).classList.add('active');
+		}
+
+		window.addEventListener('load', function() {
+			const savedTheme = window.currentTheme || 'original';
+			changeTheme(savedTheme);
+		});
+
+		let currentSlide = 0;
+		const slides = document.querySelectorAll('.slide');
+		let slideInterval;
+
+		function showSlide(index) {
+			slides.forEach(slide => slide.classList.remove('active'));
+			currentSlide = (index + slides.length) % slides.length;
+			slides[currentSlide].classList.add('active');
+		}
+
+		function changeSlide(direction) {
+			showSlide(currentSlide + direction);
+			resetSlideInterval();
+		}
+
+		function resetSlideInterval() {
+			clearInterval(slideInterval);
+			slideInterval = setInterval(() => {
+				showSlide(currentSlide + 1);
+			}, 5000);
+		}
+
+		resetSlideInterval();
+
+		function validateForm(event) {
+			event.preventDefault();
+			
+			let isValid = true;
+			
+			const fullName = document.getElementById('fullName').value.trim();
+			const email = document.getElementById('email').value.trim();
+			const phone = document.getElementById('phone').value.trim();
+			const message = document.getElementById('message').value.trim();
+			
+			document.querySelectorAll('.error-message').forEach(error => {
+				error.style.display = 'none';
+			});
+			
+			if (fullName.length < 3) {
+				document.getElementById('nameError').style.display = 'block';
+				isValid = false;
+			}
+			
+			const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailPattern.test(email)) {
+				document.getElementById('emailError').style.display = 'block';
+				isValid = false;
+			}
+			
+			const phonePattern = /^[0-9]{10,11}$/;
+			if (!phonePattern.test(phone)) {
+				document.getElementById('phoneError').style.display = 'block';
+				isValid = false;
+			}
+			
+			if (message.length < 10) {
+				document.getElementById('messageError').style.display = 'block';
+				isValid = false;
+			}
+			
+			if (isValid) {
+				document.getElementById('successMessage').style.display = 'block';
+				document.getElementById('contactForm').reset();
+				
+				setTimeout(() => {
+					document.getElementById('successMessage').style.display = 'none';
+				}, 5000);
+			}
+			
+			return false;
+		}
+
+		function animateCounters() {
+			const counters = document.querySelectorAll('.stat-number');
+			
+			counters.forEach(counter => {
+				const target = parseInt(counter.getAttribute('data-target'));
+				const duration = 2500;
+				const increment = target / (duration / 16);
+				let current = 0;
+				
+				const updateCounter = () => {
+					current += increment;
+					if (current < target) {
+						counter.textContent = Math.floor(current);
+						requestAnimationFrame(updateCounter);
+					} else {
+						counter.textContent = target;
+					}
+				};
+				
+				updateCounter();
+			});
+		}
+
+		const statsSection = document.querySelector('.stats-section');
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					animateCounters();
+					observer.unobserve(entry.target);
+				}
+			});
+		}, { threshold: 0.5 });
+		observer.observe(statsSection);
+
+		function updateClock() {
+			const now = new Date();
+			
+			const hours = String(now.getHours()).padStart(2, '0');
+			const minutes = String(now.getMinutes()).padStart(2, '0');
+			const seconds = String(now.getSeconds()).padStart(2, '0');
+			const timeString = `${hours}:${minutes}:${seconds}`;
+			
+			const options = { 
+				weekday: 'long', 
+				year: 'numeric', 
+				month: 'long', 
+				day: 'numeric' 
+			};
+			const dateString = now.toLocaleDateString('en-US', options);
+			
+			document.getElementById('clockTime').textContent = timeString;
+			document.getElementById('clockDate').textContent = dateString;
+		}
+
+		setInterval(updateClock, 1000);
+		updateClock();
+	</script>
+</body>
+</html>
